@@ -31,22 +31,22 @@ exports.simpleSerializer = function(test) {
 	});
 };
 
-/*exports.complexSerializer = function(test) {
+exports.complexSerializer = function(test) {
 	var config = {
 		host: 'localhost:59903',
 		logLevel: 'OFF',
 		serializer: {
 			'application/json' : {
 				serialize: function(content) {
-					enserializeCounter += 1;
+					enserializeCounter += 10;
 					return JSON.stringify(content);
 				},
 				deserialize: function(content) {
-					deserializeCounter += 1;
+					deserializeCounter += 10;
 					return JSON.parse(content);
 				}
 			},
-			'text/html' : {
+			'text/plain' : {
 				serialize: function(content) {
 					enserializeCounter += 1;
 					return content;
@@ -59,17 +59,16 @@ exports.simpleSerializer = function(test) {
 		}
 	};
 	var client = armrest.client(config);
-	var client = armrest.client(config);
 	client.get({
-		url: '/json',
+		url: '/json-unannounced',
 		success: function(data) {
 			test.equals(enserializeCounter, 0, 'serialized');
 			test.equals(deserializeCounter, 1, 'deserialized');
-			test.equals(data.results, 42, 'Got some data');
+			test.equals(typeof(data), 'string', 'Got some data');
 			test.done();
 		}
 	});
-};*/
+};
 
 exports.setUp = function(callback) {
 	enserializeCounter = 0;
