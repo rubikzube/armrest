@@ -12,7 +12,7 @@ exports.configureHeaders = function(test) {
 	var client = armrest.client(config);
 	client.get({
 		url: '/json',
-		complete: function(err, response) {
+		success: function(data, response) {
 			test.ok(response);
 			test.equals(response.req._headers['user-agent'], config.headers['user-agent'], 'Sent user header');
 			test.done();
@@ -35,7 +35,7 @@ exports.overrideHeaders = function(test) {
 		headers: {
 			'secret-agent': 'sterling mallory archer'
 		},
-		complete: function(err, response) {
+		success: function(data, response) {
 			test.ok(response);
 			test.equals(response.req._headers['user-agent'], config.headers['user-agent'], 'Sent user agent header');
 			test.equals(response.req._headers['secret-agent'], 'sterling mallory archer', 'Sent secret agent header');
